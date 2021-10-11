@@ -44,7 +44,7 @@ variable subnet_cidr {
 # ==OSRM Service configs==
 variable pbf_files_to_instance_type {
   type = list(tuple([string, string]))
-  description = "[<`pbf` url>, <instance type>]"
+  description = "[url link to pbf, ec2 instance type]"
 }
 
 variable osrm_base_docker_image {
