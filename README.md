@@ -47,4 +47,4 @@ No requirements.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_pbf_files_to_public_ip"></a> [pbf\_files\_to\_public\_ip](#output\_pbf\_files\_to\_public\_ip) | n/a |
+| <a name="output_pbf_files_to_public_ip"></a> [pbf\_files\_to\_public\_ip](#output\_pbf\_files\_to\_public\_ip) | Mappings: pbf file <-> OSRM instance public ip |
