@@ -18,16 +18,16 @@ jobs:
       with:
         python-version: 3.9
 
-    - name: Building OSRM image
+    - name: Building OSRM docker image
       run: bash -c "source docker/build_image.sh"
 
     - name: Starting docker container
-      run: bash -c "docker-compose -f docker/docker-compose.yaml up -d"
+      run: bash -c "docker-compose -f docker/docker-compose-test.yaml up -d"
 
     - name: Sleeping until pbf will be downloaded and parsed
       run: bash -c "sleep 60"
 
-    - name: Sleeping until pbf will be downloaded and parsed
+    - name: Checking if container is running
       run: bash -c "source docker/check_if_container_is_running.sh"
 
     - name: Starting docker container
