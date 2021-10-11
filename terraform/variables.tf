@@ -1,53 +1,56 @@
 # == COMMON VARIABLES ==
 variable region {
   type = string
+  description = "Region of infrastructure deployment"
 }
 
 variable name {
-  description = "Name of project"
+  description = "Project Name"
   type = string
 }
 
 variable vpc_id {
   type = string
+  description = "VPC ID OSRM services must be deployed"
 }
 
 variable vpc_cidr {
   type        = string
-  description = "VPC cidr"
+  description = "VPC CIDR OSRM services must be deployed"
+
 }
 
 variable ami {
   type        = string
-  description = "AMI id image will be used for master & workers"
+  description = "AMI id image will be used as base for OSRM images"
 }
 
 variable ssh_key {
   type        = string
   default     = ""
-  description = "ssh keys for access to aws"
+  description = "ssh keys for access to aws in local development"
 }
 
 variable subnet_id {
   type        = string
-  description = "Subnet ID"
+  description = "Subnet ID module must be deployed"
 }
 
 variable subnet_cidr {
   type        = string
-  description = "Subnet CIDR"
+  description = "Subnet CIDR module must be deployed"
 }
 
 # ==OSRM Service configs==
 variable pbf_files_to_instance_type {
   type = list(tuple([string, string]))
-  description = "Mapping URL of pbf -> instance_type"
+  description = "[<`pbf` url>, <instance type>]"
 }
 
 variable osrm_base_docker_image {
   type        = string
   default     = "wastelabs/osrm-base-image:0.1.0"
-  description = "Docker base image used for deployment"
+  description = "Docker base image used for deployment OSRM services"
 }
 
 variable osrm_graph_profile_url {
