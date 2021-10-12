@@ -31,4 +31,4 @@ jobs:
       run: bash -c "source docker/check_if_container_is_running.sh"
 
     - name: Starting docker container
-      run: bash -c "docker-compose -f docker/docker-compose.yaml down"
+      run: bash -c "docker-compose -f docker/docker-compose-test.yaml down"
