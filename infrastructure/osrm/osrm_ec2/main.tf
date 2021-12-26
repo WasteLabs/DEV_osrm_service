@@ -2,7 +2,6 @@ provider "aws" {
   region = var.region
 }
 
-# == SECURITY GROUP | BEGIN==
 module "osrm_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4"
@@ -17,7 +16,7 @@ module "osrm_sg" {
       from_port   = 5000
       to_port     = 5000
       protocol    = "tcp"
-      description = "OSRM backend"
+      description = "OSRM endpoint"
       cidr_blocks = "0.0.0.0/0"
     },
     {
@@ -39,13 +38,8 @@ module "osrm_sg" {
   ]
 
 }
-# == SECURITY GROUP | END==
 
 
-# == NETWORK INTERFACE | BEGIN==
-# == NETWORK INTERFACE | END==
-
-# == EC2 INSTANCES | BEGIN==
 resource "aws_instance" "osrm_instance" {
   
   lifecycle {

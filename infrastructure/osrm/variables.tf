@@ -1,13 +1,13 @@
 # == COMMON PARAMETERS ==
 variable ami {
-  description = "AMI image used for bastion instance"
+  description = "AMI image used as baseline"
   type = string
-  default = "ami-0b4d44f0f68cb30bc"
+  default = "ami-0a2c8ea16986f7bd8"
 }
 
 variable ssh_key {
   type        = string
-  default     = "waste-labs-dev-london-eu-west-2"
+  default     = "aws-us-east-1"
   description = "ssh key for access to servers"
 }
 

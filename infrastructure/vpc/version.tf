@@ -4,13 +4,13 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "= 3.62.0"
+      version = "= 3.70.0"
     }
   }
   backend "s3" {
-    bucket  = "waste-labs-terraform-infrastructure"
-    key     = "services/test/osrm/osrm_vpc.tfstate"
-    region  = "eu-west-2"
+    bucket  = "waste-labs-terraform-backends"
+    key     = "DEV_OSRM_SERVICE/vpc.tfstate"
+    region  = "us-east-1"
     encrypt = true
   }
 }
