@@ -1,4 +1,14 @@
 # == COMMON PARAMETERS ==
+variable "tags" {
+  default     = {
+    project_name = "DEV_OSRM_SERVICE"
+    region = "us-east-1"
+  }
+  description = "Tags set to VPC"
+  type        = map(string)
+}
+
+
 variable ami {
   description = "AMI image used as baseline"
   type = string
@@ -23,7 +33,7 @@ variable pbf_files_to_instance_type {
 
 variable osrm_base_docker_image {
   type        = string
-  default     = "wastelabs/osrm-base-image:0.1.0"
+  default     = "public.ecr.aws/u6u7x5n5/dev_osrm_service:1.0.0"
   description = "Docker base image used for deployment"
 }
 

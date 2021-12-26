@@ -9,7 +9,7 @@ terraform {
   }
   backend "s3" {
     bucket  = "waste-labs-terraform-backends"
-    key     = "DEV_OSRM_SERVICE/osrm_instances.tfstate"
+    key     = "DEV_OSRM_SERVICE/osrm.tfstate"
     region  = "us-east-1"
     encrypt = true
   }
