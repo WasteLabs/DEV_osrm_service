@@ -1,1 +1,0 @@
-docker build ./docker -t wastelabs/osrm-base-image:0.1.0 --no-cache --compress

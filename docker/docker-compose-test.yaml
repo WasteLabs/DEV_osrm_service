@@ -3,7 +3,7 @@ version: '3'
 services:
 
     osrm_service:
-        image: wastelabs/osrm-base-image:0.1.0
+        image: public.ecr.aws/u6u7x5n5/dev_osrm_service:1.0.0
         environment:
         - OSRM_PBF_URL=https://download.openstreetmap.fr/extracts/asia/singapore.osm.pbf
         - OSRM_GRAPH_PROFILE_URL=https://raw.githubusercontent.com/WasteLabs/osrm_profiles/master/truck_v1.lua
