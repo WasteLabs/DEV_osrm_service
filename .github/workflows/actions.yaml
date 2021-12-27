@@ -37,7 +37,10 @@ jobs:
       
       - name: Terraform | Plan VPC
         id: plan_vpc
-        run: ls && terraform plan -no-color
+        run: |
+          cd infrastructure/vpc && \
+          ls && terraform workspace show \
+          terraform plan -no-color
           
       # - name: Terraform Apply
       #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
