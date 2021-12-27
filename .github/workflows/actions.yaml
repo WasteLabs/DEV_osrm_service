@@ -28,17 +28,33 @@ jobs:
         with:
           terraform_version: 1.0.8
         
-      - name: Terraform | Init VPC
-        id: init_vpc
+      - name: Terraform | Deploy VPC
+        id: deploy_vpc
         run: |
           cd infrastructure/vpc && \
           terraform init && \
-          terraform workspace select test
+          terraform workspace select test && \
+          terraform apply -auto-approve
 
-      - name: Terraform | Deploy VPC
-        id: deploy_vpc
-        run: cd infrastructure/vpc && terraform apply -auto-approve      
-      
+      - name: Terraform | Deploy OSRM
+        id: init_osrm
+        run: |
+          cd infrastructure/osrm && \
+          terraform init && \
+          terraform workspace select test && \
+          terraform apply -auto-approve
+
+      - name: Terraform | Destroy VPC
+        id: destroy_vpc
+        run: |
+          cd infrastructure/vpc && \
+          terraform destroy -auto-approve
+
+      - name: Terraform | Destroy OSRM
+        id: destroy_osrm
+        run: |
+          cd infrastructure/osrm && \
+          terraform destroy -auto-approve
   # docker-build:
 
   #   runs-on: ubuntu-latest
