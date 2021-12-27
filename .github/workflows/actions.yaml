@@ -1,4 +1,4 @@
-name: OSRM service testing...
+name: OSRM service & infrastructure testing...
 
 on:
   pull_request:
@@ -6,7 +6,34 @@ on:
 
 jobs:
 
-  terraform-deploy:
+  docker-build:
+
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+  
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Building OSRM docker image
+      run: bash -c "source docker/build.sh"
+
+    - name: Starting docker container
+      run: bash -c "docker-compose -f docker/docker-compose-test.yaml up -d"
+
+    - name: Sleeping until pbf will be downloaded and parsed
+      run: bash -c "sleep 60"
+
+    - name: Checking if container is running
+      run: bash -c "source docker/check_if_container_is_running.sh"
+
+    - name: Starting docker container
+      run: bash -c "docker-compose -f docker/docker-compose-test.yaml down"
+
+  terraform-test-deployment:
 
     name: "Terraform test deployment"
     runs-on: ubuntu-latest
@@ -59,29 +86,3 @@ jobs:
         run: |
           cd infrastructure/vpc && \
           terraform destroy -auto-approve
-  # docker-build:
-
-  #   runs-on: ubuntu-latest
-  #   steps:
-
-  #   - uses: actions/checkout@v2
-  
-  #   - name: Set up Python 3.9
-  #     uses: actions/setup-python@v2
-  #     with:
-  #       python-version: 3.9
-
-  #   - name: Building OSRM docker image
-  #     run: bash -c "source docker/build.sh"
-
-  #   - name: Starting docker container
-  #     run: bash -c "docker-compose -f docker/docker-compose-test.yaml up -d"
-
-  #   - name: Sleeping until pbf will be downloaded and parsed
-  #     run: bash -c "sleep 60"
-
-  #   - name: Checking if container is running
-  #     run: bash -c "source docker/check_if_container_is_running.sh"
-
-  #   - name: Starting docker container
-  #     run: bash -c "docker-compose -f docker/docker-compose-test.yaml down"
