@@ -27,7 +27,11 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.8
-        
+
+      - name: Install git
+        id: git_install
+        run: sudo apt install git
+
       - name: Terraform | Deploy VPC
         id: deploy_vpc
         run: |
