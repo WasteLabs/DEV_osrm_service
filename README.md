@@ -1,12 +1,14 @@
 # **DEV_OSRM**
 
-OSRM back-end service infrastructure project
+Given project is created to contain OSRM base docker image & deployment infrasturcture on AWS.
 
-## **Workspaces**
+## **Project details**
 
-* dev
-* test
-* prod
+* **Workspaces used**
+    * dev
+    * test
+    * prod
+* **Default aws region**: `us-east-1`
+* **Default aws compute resource**: EC2 (on-demand)
 
-## **Default aws region**: `us-east-1`
-## **Default aws compute resource**: EC2 (on-demand)
+Learn more about infrastructure under `infrastructure/` directory

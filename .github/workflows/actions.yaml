@@ -1,13 +1,13 @@
-name: OSRM service testing...
+name: OSRM service & infrastructure testing...
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build:
+
+  docker-build:
+
     runs-on: ubuntu-latest
     steps:
 
@@ -19,7 +19,7 @@ jobs:
         python-version: 3.9
 
     - name: Building OSRM docker image
-      run: bash -c "source docker/build_image.sh"
+      run: bash -c "source docker/build.sh"
 
     - name: Starting docker container
       run: bash -c "docker-compose -f docker/docker-compose-test.yaml up -d"
@@ -32,3 +32,57 @@ jobs:
 
     - name: Starting docker container
       run: bash -c "docker-compose -f docker/docker-compose-test.yaml down"
+
+  terraform-test-deployment:
+
+    name: "Terraform test deployment"
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: "Setup - Checkout"
+        uses: actions/checkout@v2.1.0
+
+      - name: "Setup AWS Credentials"
+        run: |
+          mkdir -p ~/.aws
+          echo "[default]" > ~/.aws/credentials
+          echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.8
+
+      - name: Install git
+        id: git_install
+        run: sudo apt install git
+
+      - name: Terraform | Deploy VPC
+        id: deploy_vpc
+        run: |
+          cd infrastructure/vpc && \
+          terraform init && \
+          terraform workspace select test && \
+          terraform apply -auto-approve
+
+      - name: Terraform | Deploy OSRM
+        id: init_osrm
+        run: |
+          cd infrastructure/osrm && \
+          terraform init && \
+          terraform workspace select test && \
+          terraform apply -auto-approve
+
+      - name: Terraform | Destroy OSRM
+        id: destroy_osrm
+        run: |
+          cd infrastructure/osrm && \
+          terraform destroy -auto-approve
+
+      - name: Terraform | Destroy VPC
+        id: destroy_vpc
+        run: |
+          cd infrastructure/vpc && \
+          terraform destroy -auto-approve
