@@ -34,17 +34,10 @@ jobs:
           cd infrastructure/vpc && \
           terraform init && \
           terraform workspace select test
-      
-      - name: Terraform | Plan VPC
-        id: plan_vpc
-        run: |
-          cd infrastructure/vpc && \
-          ls && terraform workspace show \
-          terraform plan -no-color
-          
-      # - name: Terraform Apply
-      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      #   run: terraform apply -auto-approve      
+
+      - name: Terraform | Deploy VPC
+        id: deploy_vpc
+        run: cd infrastructure/vpc && terraform apply -auto-approve      
       
   # docker-build:
 
