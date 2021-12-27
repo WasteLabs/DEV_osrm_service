@@ -48,16 +48,16 @@ jobs:
           terraform workspace select test && \
           terraform apply -auto-approve
 
-      - name: Terraform | Destroy VPC
-        id: destroy_vpc
-        run: |
-          cd infrastructure/vpc && \
-          terraform destroy -auto-approve
-
       - name: Terraform | Destroy OSRM
         id: destroy_osrm
         run: |
           cd infrastructure/osrm && \
+          terraform destroy -auto-approve
+
+      - name: Terraform | Destroy VPC
+        id: destroy_vpc
+        run: |
+          cd infrastructure/vpc && \
           terraform destroy -auto-approve
   # docker-build:
 
