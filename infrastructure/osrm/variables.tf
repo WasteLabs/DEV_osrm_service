@@ -25,9 +25,9 @@ variable ssh_key {
 variable pbf_files_to_instance_type {
   type = list(tuple([string, string]))
   default = [
-      ["https://download.openstreetmap.fr/extracts/asia/singapore.osm.pbf",  "t2.micro"],
-      ["https://download.openstreetmap.fr/extracts/oceania/australia/new_south_wales-latest.osm.pbf",  "t2.micro"],
-      ["https://download.openstreetmap.fr/extracts/asia/china/hong_kong-latest.osm.pbf", "t2.micro"],
+      # ["https://download.openstreetmap.fr/extracts/asia/singapore.osm.pbf",  "t2.micro"],
+      ["https://download.openstreetmap.fr/extracts/oceania/australia/new_south_wales-latest.osm.pbf",  "c5.large"],
+      # ["https://download.openstreetmap.fr/extracts/asia/china/hong_kong-latest.osm.pbf", "t2.micro"],
   ]
 }
 
