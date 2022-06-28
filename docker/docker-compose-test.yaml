@@ -3,10 +3,12 @@ version: '3'
 services:
 
     osrm_service:
-        image: public.ecr.aws/u6u7x5n5/dev_osrm_service:1.0.0
+        image: public.ecr.aws/u6u7x5n5/dev_osrm_service:latest
         environment:
         - OSRM_PBF_URL=https://download.openstreetmap.fr/extracts/asia/singapore.osm.pbf
         - OSRM_GRAPH_PROFILE_URL=https://raw.githubusercontent.com/WasteLabs/osrm_profiles/master/truck_v1.lua
         - OSRM_MAX_MATCHING_SIZE=86400
+        - OSRM_MAX_TRIP_SIZE=1000
+        - OSRM_MAX_VIAROUTE_SIZE=1000
         ports:
         - 5000:5000
