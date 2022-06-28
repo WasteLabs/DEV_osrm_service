@@ -8,7 +8,8 @@ OSRM_GRAPH_PROFILE_URL=${OSRM_GRAPH_PROFILE_URL:=""}
 OSRM_PBF_URL=${OSRM_PBF_URL:="http://download.geofabrik.de/asia/maldives-latest.osm.pbf"}
 OSRM_MAX_TABLE_SIZE=${OSRM_MAX_TABLE_SIZE:="8000"}
 OSRM_MAX_MATCHING_SIZE=${OSRM_MAX_MATCHING_SIZE:="86400"}
-
+OSRM_MAX_TRIP_SIZE=${OSRM_MAX_TRIP_SIZE:="1000"}
+OSRM_MAX_VIAROUTE_SIZE=${OSRM_MAX_VIAROUTE_SIZE:="1000"}
 
 
 _sig() {
@@ -36,8 +37,18 @@ osrm-extract $OSRM_DATA_PATH/$OSRM_DATA_LABEL.osm.pbf -p $OSRM_GRAPH_PROFILE_PAT
 osrm-contract $OSRM_DATA_PATH/$OSRM_DATA_LABEL.osrm
 
 # Start serving requests
-osrm-routed $OSRM_DATA_PATH/$OSRM_DATA_LABEL.osrm --max-table-size $OSRM_MAX_TABLE_SIZE --max-matching-size $OSRM_MAX_MATCHING_SIZE &
+osrm-routed $OSRM_DATA_PATH/$OSRM_DATA_LABEL.osrm \
+  --max-table-size $OSRM_MAX_TABLE_SIZE \
+  --max-matching-size $OSRM_MAX_MATCHING_SIZE \
+  --max-trip-size $OSRM_MAX_TRIP_SIZE \
+  --max-viaroute-size $OSRM_MAX_VIAROUTE_SIZE & 
 child=$!
-osrm-routed $OSRM_DATA_PATH/$OSRM_DATA_LABEL.osrm --max-table-size $OSRM_MAX_TABLE_SIZE --max-matching-size $OSRM_MAX_MATCHING_SIZE &
+
+osrm-routed $OSRM_DATA_PATH/$OSRM_DATA_LABEL.osrm \
+  --max-table-size $OSRM_MAX_TABLE_SIZE \
+  --max-matching-size $OSRM_MAX_MATCHING_SIZE \
+  --max-trip-size $OSRM_MAX_TRIP_SIZE \
+  --max-viaroute-size $OSRM_MAX_VIAROUTE_SIZE &
 child=$!
+
 wait "$child"
