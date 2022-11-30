@@ -36,8 +36,6 @@ RUN apt-get -y update \
     python-setuptools
 
 RUN apt-get clean \
- && pip install wheel \
- && pip install -U crcmod \ 
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/*
 
